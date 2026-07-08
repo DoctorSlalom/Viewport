@@ -73,6 +73,10 @@ Prototypes are **arbitrary HTML dropped in by team members** — effectively unt
 
 Sync runs on demand (`/api/sync`), and can be triggered on Vercel's post-deploy hook so a push refreshes the canvas.
 
+### 2.4 API surface
+
+The full HTTP contract — every route grouped by origin, with auth requirement, payload, and response — is specified in [`docs/api-surface.md`](./docs/api-surface.md). It defines three caller types (reviewer session, machine bearer token, prototype ticket), the CSRF/rate-limit conventions, and the streaming AI endpoints.
+
 ---
 
 ## 3. Data model (Postgres / Drizzle)

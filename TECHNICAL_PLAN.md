@@ -96,6 +96,8 @@ Notes:
 - `syntheses.input_snapshot` records exactly which comments fed a generation, so outputs are reproducible/auditable.
 - `decisions.doc_path` + `committed_sha` link a decision to the markdown file committed into `decisions/`.
 
+> **Concrete schema:** the full Drizzle table definitions, relations, indexes, the sync reconciliation algorithm, and the connection/migration approach live in [`docs/data-model.md`](./docs/data-model.md).
+
 ---
 
 ## 4. Authentication
@@ -146,6 +148,7 @@ GitHub/Vercel automation is kept minimal in the MVP (relies on Vercel's native g
 - Auth: password hash in DB, login route, session cookie, middleware gate.
 - `create-viewport` (init + password + deploy) and Vercel deploy pipeline.
 - CI (lint, typecheck, test), basic error tracking.
+- Scaffold `CLAUDE.md` recording the stack, the DB/repo persistence boundary, the untrusted-HTML sandbox rule, and build/test/deploy commands — so every future session and teammate starts with this context.
 
 **Exit:** `npx create-viewport` produces a password-protected deployed app shell.
 

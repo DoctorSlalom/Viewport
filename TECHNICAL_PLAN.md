@@ -61,6 +61,8 @@ Prototypes are **arbitrary HTML dropped in by team members** — effectively unt
 - A strict **CSP** on the prototype origin limits what prototype scripts can reach.
 - The prototype file reader validates paths (no traversal outside `prototypes/`) and only serves within a variant folder.
 
+> **Full design:** threat model, iframe sandbox flags, response headers, the cross-origin auth handshake, and path-traversal defense are detailed in [`docs/prototype-sandbox.md`](./docs/prototype-sandbox.md).
+
 ### 2.3 Canvas sync
 
 "Sync" reconciles the filesystem with the DB:

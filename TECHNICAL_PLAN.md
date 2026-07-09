@@ -125,9 +125,11 @@ Notes:
 | Generate generation spec | Synthesis + direction | Brief for next prototype round | `syntheses` + optionally committed |
 
 - Calls go through a server route handler using the Anthropic SDK; **responses stream** to the UI for a live feel.
-- Default model `claude-sonnet-5`; decision docs may use `claude-opus-4-8`. Model is set in `viewport.config.json` and overridable per call.
+- Default model `claude-opus-4-8` (configurable down to `claude-sonnet-5` / `claude-haiku-4-5` for cost); adaptive thinking with a configurable `effort`. Set in `viewport.config.json`.
 - **Repo write path:** generating a decision/generation spec (on explicit user action) commits the markdown via Octokit to `decisions/` (or `specs/`), records `committed_sha`. Losing variants are marked `archived` in the DB, not deleted (matches the brief).
 - API key stored as a Vercel env var (`ANTHROPIC_API_KEY`).
+
+> **Full design:** prompt architecture, input snapshotting, streaming-to-SSE, structured output for suggestions, the Octokit commit transaction, and prompt-injection defenses are in [`docs/ai-synthesis.md`](./docs/ai-synthesis.md).
 
 ---
 

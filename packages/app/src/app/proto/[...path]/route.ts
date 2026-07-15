@@ -38,14 +38,20 @@ function cspHeader(): string {
   ].join('; ');
 }
 
+/** Returns false for any segment sequence that should be blocked. Exported for testing. */
+export function isValidPathSegments(segments: string[]): boolean {
+  if (segments.some((s) => s === '..' || s === '.' || s.includes('\0'))) return false;
+  if (segments[0]?.startsWith('_') || segments.some((s) => s.startsWith('.'))) return false;
+  return true;
+}
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ path: string[] }> },
 ) {
   const { path: segments } = await params;
 
-  // Reject any segment that would escape the prototypes root.
-  if (segments.some((s) => s === '..' || s === '.' || s.includes('\0'))) {
+  if (!isValidPathSegments(segments)) {
     return new NextResponse('Not found', { status: 404 });
   }
 
@@ -55,11 +61,6 @@ export async function GET(
 
   // Confirm the resolved path is still inside the root (defence-in-depth).
   if (!absolute.startsWith(resolve(root) + '/') && absolute !== resolve(root)) {
-    return new NextResponse('Not found', { status: 404 });
-  }
-
-  // Block access to _template and dotfiles.
-  if (segments[0]?.startsWith('_') || segments.some((s) => s.startsWith('.'))) {
     return new NextResponse('Not found', { status: 404 });
   }
 

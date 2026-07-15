@@ -17,7 +17,8 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
+      "outputs": ["coverage/**"],
+      "outputLogs": "new-only"
     },
     "db:generate": {
       "cache": false
